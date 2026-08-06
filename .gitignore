@@ -1,0 +1,18 @@
+# Gradle
+.gradle/
+**/build/
+
+# Node
+node_modules/
+dist/
+
+# Environment
+.env
+
+# IDE
+.idea/
+.vscode/
+
+# OS
+.DS_Store
+Thumbs.db

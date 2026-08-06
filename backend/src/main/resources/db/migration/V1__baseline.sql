@@ -1,0 +1,1 @@
+-- Baseline migration: schema will be added as business features are implemented.
