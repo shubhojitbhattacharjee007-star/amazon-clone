@@ -1,0 +1,31 @@
+spring:
+  application:
+    name: amazon-clone-backend
+
+  datasource:
+    url: jdbc:h2:mem:testdb;MODE=PostgreSQL;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
+    username: sa
+    password:
+    driver-class-name: org.h2.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+    database-platform: org.hibernate.dialect.H2Dialect
+
+  flyway:
+    enabled: false
+
+  autoconfigure:
+    exclude:
+      - org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration
+      - org.springframework.boot.autoconfigure.security.servlet.UserDetailsServiceAutoConfiguration
+
+logging:
+  level:
+    root: WARN
+
+security:
+  jwt:
+    secret: VGhpc0lzQVN1ZmZpY2llbnRseUxvbmdUZXN0S2VjcmV0S2V5Rm9ySldU
+    expiration-ms: 86400000
