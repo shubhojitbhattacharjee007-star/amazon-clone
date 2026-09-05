@@ -5,9 +5,11 @@ import com.amazonclone.dto.LoginRequest;
 import com.amazonclone.dto.RegisterRequest;
 import com.amazonclone.entity.Role;
 import com.amazonclone.entity.User;
+import com.amazonclone.exception.BaseException;
 import com.amazonclone.repository.UserRepository;
 import com.amazonclone.security.JwtService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -27,8 +29,10 @@ public class AuthService {
     public AuthResponse register(RegisterRequest request) {
 
         if (userRepository.existsByEmail(request.getEmail())) {
-            throw new IllegalArgumentException(
-                    "User already exists with email: " + request.getEmail()
+            throw new BaseException(
+                    "User already exists with email: " + request.getEmail(),
+                    HttpStatus.CONFLICT,
+                    "USER_ALREADY_EXISTS"
             );
         }
 
