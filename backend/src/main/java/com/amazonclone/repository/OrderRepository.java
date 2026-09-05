@@ -28,6 +28,22 @@ public interface OrderRepository extends JpaRepository<Order, UUID> {
             SELECT DISTINCT o FROM Order o
             LEFT JOIN FETCH o.orderItems oi
             LEFT JOIN FETCH oi.product
+            ORDER BY o.createdAt DESC
+            """)
+    List<Order> findAllWithItemsOrderByCreatedAtDesc();
+
+    @Query("""
+            SELECT DISTINCT o FROM Order o
+            LEFT JOIN FETCH o.orderItems oi
+            LEFT JOIN FETCH oi.product
+            WHERE o.id = :orderId
+            """)
+    Optional<Order> findByIdWithItems(@Param("orderId") UUID orderId);
+
+    @Query("""
+            SELECT DISTINCT o FROM Order o
+            LEFT JOIN FETCH o.orderItems oi
+            LEFT JOIN FETCH oi.product
             WHERE o.id = :orderId AND o.user.id = :userId
             """)
     Optional<Order> findByIdAndUserIdWithItems(

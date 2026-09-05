@@ -45,12 +45,12 @@ public class OrderController {
     }
 
     @PatchMapping("/{orderId}/status")
-    public ResponseEntity<OrderResponse> updateMyOrderStatus(
+    public ResponseEntity<OrderResponse> updateOrderStatus(
             @PathVariable UUID orderId,
             @Valid @RequestBody UpdateOrderStatusRequest request
     ) {
         return ResponseEntity.ok(
-                orderService.updateMyOrderStatus(orderId, request)
+                orderService.updateOrderStatus(orderId, request)
         );
     }
 

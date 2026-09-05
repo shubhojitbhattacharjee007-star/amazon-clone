@@ -48,6 +48,14 @@ public class OrderService {
     }
 
     @Transactional(readOnly = true)
+    public List<OrderResponse> getAllOrders() {
+        return orderRepository.findAllWithItemsOrderByCreatedAtDesc()
+                .stream()
+                .map(orderMapper::toResponse)
+                .toList();
+    }
+
+    @Transactional(readOnly = true)
     public OrderResponse getMyOrderDetails(UUID orderId) {
         User user = getCurrentUser();
 
@@ -92,14 +100,12 @@ public class OrderService {
     }
 
     @Transactional
-    public OrderResponse updateMyOrderStatus(
+    public OrderResponse updateOrderStatus(
             UUID orderId,
             UpdateOrderStatusRequest request
     ) {
-        User user = getCurrentUser();
-
         Order order = orderRepository
-                .findByIdAndUserIdWithItems(orderId, user.getId())
+                .findByIdWithItems(orderId)
                 .orElseThrow(() ->
                         new ResourceNotFoundException("Order", orderId)
                 );
