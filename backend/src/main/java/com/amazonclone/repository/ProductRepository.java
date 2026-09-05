@@ -8,9 +8,9 @@ import java.util.UUID;
 
 public interface ProductRepository extends JpaRepository<Product, UUID> {
 
-    List<Product> findByCategory(String category);
+    List<Product> findByCategoryAndActiveTrue(String category);
 
     List<Product> findByActiveTrue();
 
-    List<Product> findByNameContainingIgnoreCase(String name);
+    List<Product> findByNameContainingIgnoreCaseAndActiveTrue(String name);
 }

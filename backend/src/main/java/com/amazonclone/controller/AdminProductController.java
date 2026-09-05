@@ -1,7 +1,9 @@
 package com.amazonclone.controller;
 
+import com.amazonclone.dto.AdminProductRequest;
 import com.amazonclone.entity.Product;
 import com.amazonclone.service.ProductService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -23,18 +25,22 @@ public class AdminProductController {
     private final ProductService productService;
 
     @PostMapping
-    public ResponseEntity<Product> createProduct(@RequestBody Product product) {
+    public ResponseEntity<Product> createProduct(
+            @Valid @RequestBody AdminProductRequest request
+    ) {
         return ResponseEntity
                 .status(HttpStatus.CREATED)
-                .body(productService.createProduct(product));
+                .body(productService.createProduct(request));
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<Product> updateProduct(
             @PathVariable UUID id,
-            @RequestBody Product product
+            @Valid @RequestBody AdminProductRequest request
     ) {
-        return ResponseEntity.ok(productService.updateProduct(id, product));
+        return ResponseEntity.ok(
+                productService.updateProduct(id, request)
+        );
     }
 
     @DeleteMapping("/{id}")
