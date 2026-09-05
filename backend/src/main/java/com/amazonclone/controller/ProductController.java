@@ -3,9 +3,12 @@ package com.amazonclone.controller;
 import com.amazonclone.entity.Product;
 import com.amazonclone.service.ProductService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 import java.util.UUID;
@@ -31,44 +34,13 @@ public class ProductController {
     public ResponseEntity<List<Product>> getProductsByCategory(
             @PathVariable String category
     ) {
-        return ResponseEntity.ok(
-                productService.getProductsByCategory(category)
-        );
+        return ResponseEntity.ok(productService.getProductsByCategory(category));
     }
 
     @GetMapping("/search")
     public ResponseEntity<List<Product>> searchProducts(
             @RequestParam String name
     ) {
-        return ResponseEntity.ok(
-                productService.searchProducts(name)
-        );
-    }
-
-    @PostMapping
-    public ResponseEntity<Product> createProduct(
-            @RequestBody Product product
-    ) {
-        return ResponseEntity
-                .status(HttpStatus.CREATED)
-                .body(productService.createProduct(product));
-    }
-
-    @PutMapping("/{id}")
-    public ResponseEntity<Product> updateProduct(
-            @PathVariable UUID id,
-            @RequestBody Product product
-    ) {
-        return ResponseEntity.ok(
-                productService.updateProduct(id, product)
-        );
-    }
-
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteProduct(
-            @PathVariable UUID id
-    ) {
-        productService.deleteProduct(id);
-        return ResponseEntity.noContent().build();
+        return ResponseEntity.ok(productService.searchProducts(name));
     }
 }
