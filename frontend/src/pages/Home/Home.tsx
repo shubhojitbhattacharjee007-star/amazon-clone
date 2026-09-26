@@ -1,13 +1,19 @@
+import BenefitsSection from "./components/BenefitsSection";
+import CategorySection from "./components/CategorySection";
+import FeaturedProducts from "./components/FeaturedProducts";
+import Hero from "./components/Hero";
+import PromoBanner from "./components/PromoBanner";
+
 function Home() {
-    return (
-      <main className="min-h-screen bg-gray-100">
-        <section className="flex h-[450px] items-center justify-center bg-gradient-to-r from-orange-300 via-yellow-200 to-orange-100">
-          <h1 className="text-5xl font-bold text-gray-800">
-            Welcome to Amazon Clone
-          </h1>
-        </section>
-      </main>
-    );
-  }
-  
-  export default Home;
+  return (
+    <div className="overflow-x-hidden">
+      <Hero />
+      <CategorySection />
+      <FeaturedProducts />
+      <PromoBanner />
+      <BenefitsSection />
+    </div>
+  );
+}
+
+export default Home;
